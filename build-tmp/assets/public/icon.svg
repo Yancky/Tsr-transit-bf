@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="110" fill="#008751"/>
+  <rect x="24" y="24" width="464" height="464" rx="90" fill="none" stroke="#fcd116" stroke-width="12"/>
+  
+  <!-- Stylized Bus Body -->
+  <path d="M120 140 C120 110, 392 110, 392 140 L392 360 C392 380, 370 380, 370 380 L370 410 C370 425, 335 425, 335 410 L335 380 L177 380 L177 410 C177 425, 142 425, 142 410 L142 380 C142 380, 120 380, 120 360 Z" fill="#ffffff" />
+  
+  <!-- Windshield -->
+  <path d="M145 155 C145 140, 367 140, 367 155 L367 225 L145 225 Z" fill="#0f172a" />
+  <rect x="145" y="240" width="100" height="55" rx="8" fill="#e2e8f0" />
+  <rect x="267" y="240" width="100" height="55" rx="8" fill="#e2e8f0" />
+  
+  <!-- TSR Badge in Bus -->
+  <circle cx="256" cy="325" r="28" fill="#fcd116" />
+  <text x="256" y="333" font-family="system-ui, sans-serif" font-size="20" font-weight="900" fill="#008751" text-anchor="middle">TSR</text>
+  
+  <!-- Headlights -->
+  <circle cx="160" cy="340" r="14" fill="#fcd116" />
+  <circle cx="352" cy="340" r="14" fill="#fcd116" />
+  
+  <!-- Wheels -->
+  <rect x="135" y="380" width="35" height="35" rx="8" fill="#1e293b" />
+  <rect x="342" y="380" width="35" height="35" rx="8" fill="#1e293b" />
+</svg>

@@ -1,0 +1,19 @@
+import type { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'bf.tsrtransport.app',
+  appName: 'TSR Transport',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https',
+  },
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      backgroundColor: '#008751',
+      showSpinner: false,
+    },
+  },
+};
+
+export default config;

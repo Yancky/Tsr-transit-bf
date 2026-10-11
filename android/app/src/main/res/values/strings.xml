@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TSR Transport</string>
+    <string name="title_activity_main">TSR Transport</string>
+    <string name="package_name">bf.tsrtransport.app</string>
+    <string name="custom_url_scheme">bf.tsrtransport.app</string>
+</resources>
