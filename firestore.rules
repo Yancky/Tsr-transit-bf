@@ -54,21 +54,34 @@ service cloud.firestore {
         incoming().totalAmount is number &&
         incoming().totalAmount >= 0;
       allow update: if isOwner(userId) && isValidId(bookingId) &&
-        incoming().userId == existing().userId;
+        incoming().userId == existing().userId &&
+        // Le client ne peut pas passer arbitrairement une réservation à CONFIRMED
+        (incoming().status != 'CONFIRMED' || isAdmin());
       allow delete: if isAdmin();
     }
 
-    // 5. Espace privé voyageur : Billets
+    // 5. Espace privé voyageur : Transactions de Paiement (Sécurité financière stricte)
+    match /users/{userId}/payments/{paymentId} {
+      allow get, list: if isOwner(userId);
+      // Le navigateur ne peut créer qu'une transaction PENDING avec devise XOF
+      allow create: if isOwner(userId) && isValidId(paymentId) &&
+        incoming().userId == userId &&
+        incoming().status == 'PENDING' &&
+        incoming().currency == 'XOF' &&
+        incoming().amount is number &&
+        incoming().amount > 0;
+      // Le navigateur ne peut JAMAIS modifier une transaction financière (réservé au backend/admin)
+      allow update, delete: if isAdmin();
+    }
+
+    // 6. Espace privé voyageur : Billets Électroniques (Émission exclusivement backend)
     match /users/{userId}/tickets/{ticketId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isValidId(ticketId) &&
-        incoming().userId == userId;
-      allow update: if (isOwner(userId) || isAdmin()) && isValidId(ticketId) &&
-        incoming().userId == existing().userId;
-      allow delete: if isAdmin();
+      // Les billets ne peuvent être émis et modifiés que par le backend vérifié ou un admin
+      allow create, update, delete: if isAdmin();
     }
 
-    // 6. Alertes Anti-Fraude
+    // 7. Alertes Anti-Fraude
     match /fraudAlerts/{alertId} {
       allow get, list: if isAdmin();
       allow create: if isSignedIn() && isValidId(alertId);

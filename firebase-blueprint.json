@@ -54,6 +54,23 @@
       },
       "required": ["id", "bookingReference", "userId", "purchaserName", "purchaserPhone", "tripId", "totalAmount", "status"]
     },
+    "payment": {
+      "title": "Payment",
+      "description": "Transaction de paiement (Mobile Money ou LigdiCash Paylink)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "bookingId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["XOF"] },
+        "gateway": { "type": "string", "enum": ["ORANGE_MONEY", "MOOV_MONEY", "WAVE", "TELECEL", "LIGDICASH", "PAYDUNYA", "CASH_COUNTER"] },
+        "status": { "type": "string", "enum": ["INITIATED", "PENDING", "SUCCESS", "FAILED", "REFUNDED"] },
+        "providerTransactionId": { "type": "string", "maxLength": 150 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "bookingId", "userId", "amount", "currency", "gateway", "status"]
+    },
     "ticket": {
       "title": "Ticket",
       "description": "Billet électronique émis avec QR Code",
@@ -99,6 +116,10 @@
     "/users/{userId}/bookings/{bookingId}": {
       "schema": { "$ref": "#/entities/booking" },
       "description": "Réservations privées appartenant à l'utilisateur"
+    },
+    "/users/{userId}/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/payment" },
+      "description": "Historique et statut des transactions de paiement sécurisées"
     },
     "/users/{userId}/tickets/{ticketId}": {
       "schema": { "$ref": "#/entities/ticket" },
